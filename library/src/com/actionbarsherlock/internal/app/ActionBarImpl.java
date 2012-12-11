@@ -16,8 +16,6 @@
 
 package com.actionbarsherlock.internal.app;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -38,10 +36,10 @@ import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
-import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuPopupHelper;
@@ -54,6 +52,10 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
 import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
 /**
@@ -345,18 +347,24 @@ public class ActionBarImpl extends ActionBar {
         if(mTabScrollView == null) {
             return;
         }
-        ArrayList<TabImpl> tabs = new ArrayList<TabImpl>(mTabs);
-        int tabPosition = getSelectedNavigationIndex();
+        final ArrayList<TabImpl> tabs = new ArrayList<TabImpl>(mTabs);
+        final int tabPosition = getSelectedNavigationIndex();
         cleanupTabs();
         mTabScrollView.onDetachedFromWindow();
         mTabScrollView = null;
         ensureTabsExist();
-        for(ActionBar.Tab tab : tabs) {
-            addTab(tab, false);
-        }
-        if(tabPosition != INVALID_POSITION) {
-            selectTab(tabs.get(tabPosition));
-        }
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                ensureTabsExist();
+                for(ActionBar.Tab tab : tabs) {
+                    addTab(tab, false);
+                }
+                if(tabPosition != INVALID_POSITION) {
+                    selectTab(tabs.get(tabPosition));
+                }
+            }
+        });
 
     }
 
