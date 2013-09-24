@@ -16,10 +16,11 @@
 
 package com.actionbarsherlock.internal.nineoldandroids.animation;
 
-import java.util.ArrayList;
 import android.view.animation.Interpolator;
 
 import com.actionbarsherlock.internal.nineoldandroids.animation.Keyframe.FloatKeyframe;
+
+import java.util.ArrayList;
 
 /**
  * This class holds a collection of FloatKeyframe objects and is called by ValueAnimator to calculate
@@ -31,7 +32,6 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.Keyframe.FloatKe
  * TypeEvaluator set for the animation, so that values can be calculated without autoboxing to the
  * Object equivalents of these primitive types.</p>
  */
-@SuppressWarnings("unchecked")
 class FloatKeyframeSet extends KeyframeSet {
     private float firstValue;
     private float lastValue;

@@ -35,7 +35,6 @@ import android.view.animation.Interpolator;
  * of {@link TypeEvaluator}), you should stick to using float and int as animations using those
  * types have lower runtime overhead than other types.</p>
  */
-@SuppressWarnings("rawtypes")
 public abstract class Keyframe implements Cloneable {
     /**
      * The time at which mValue will hold true.

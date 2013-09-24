@@ -40,7 +40,6 @@ import java.util.HashMap;
  * out of an animation. This behavior can be changed by calling
  * {@link ValueAnimator#setInterpolator(TimeInterpolator)}.</p>
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ValueAnimator extends Animator {
 
     /**
@@ -146,8 +145,8 @@ public class ValueAnimator extends Animator {
             new AccelerateDecelerateInterpolator();
 
     // type evaluators for the primitive types handled by this implementation
-    //private static final TypeEvaluator sIntEvaluator = new IntEvaluator();
-    //private static final TypeEvaluator sFloatEvaluator = new FloatEvaluator();
+    private static final TypeEvaluator sIntEvaluator = new IntEvaluator();
+    private static final TypeEvaluator sFloatEvaluator = new FloatEvaluator();
 
     /**
      * Used to indicate whether the animation is currently playing in reverse. This causes the
@@ -458,7 +457,7 @@ public class ValueAnimator extends Animator {
         mValues = values;
         mValuesMap = new HashMap<String, PropertyValuesHolder>(numValues);
         for (int i = 0; i < numValues; ++i) {
-            PropertyValuesHolder valuesHolder = values[i];
+            PropertyValuesHolder valuesHolder = (PropertyValuesHolder) values[i];
             mValuesMap.put(valuesHolder.getPropertyName(), valuesHolder);
         }
         // New property/values/target should cause re-initialization prior to starting
