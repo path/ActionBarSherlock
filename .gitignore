@@ -9,6 +9,9 @@ lint.xml
 .settings
 .checkstyle
 
+#gradle
+build
+
 #IntelliJ IDEA
 .idea
 *.iml
