@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'android-library'
+apply plugin: 'maven'
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
@@ -25,4 +26,23 @@ android {
       res.srcDirs = ['res']
     }
   }
+}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            snapshotRepository(url: project.ext["pathMaven.repo.snapshots"]) {
+                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+            }
+
+            repository(url: project.ext["pathMaven.repo.releases"]) {
+                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+            }
+
+            pom.project {
+                groupId 'com.actionbarsherlock'
+                artifactId 'parent'
+                version '4.4.0.3'
+            }
+        }
+    }
 }
