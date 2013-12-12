@@ -27,21 +27,29 @@ android {
     }
   }
 }
+
+ddef deployToProd = hasProperty("pathMaven.deployToProd") && project.ext["pathMaven.deployToProd"].toBoolean()
+println "will deploy to prod?" + deployToProd
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            snapshotRepository(url: project.ext["pathMaven.repo.snapshots"]) {
-                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
-            }
+            if(deployToProd) {
+                snapshotRepository(url: project.ext["pathMaven.repo.snapshots"]) {
+                    authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+                }
 
-            repository(url: project.ext["pathMaven.repo.releases"]) {
-                authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+                repository(url: project.ext["pathMaven.repo.releases"]) {
+                    authentication(userName: project.ext["pathMaven.username"], password: project.ext["pathMaven.password"]);
+                }
+            } else {
+                repository(url: mavenLocal().getUrl())
             }
 
             pom.project {
                 groupId 'com.actionbarsherlock'
                 artifactId 'parent'
-                version '4.4.0.3'
+                version '4.4.0.4'
             }
         }
     }
