@@ -28,7 +28,7 @@ android {
   }
 }
 
-ddef deployToProd = hasProperty("pathMaven.deployToProd") && project.ext["pathMaven.deployToProd"].toBoolean()
+def deployToProd = hasProperty("pathMaven.deployToProd") && project.ext["pathMaven.deployToProd"].toBoolean()
 println "will deploy to prod?" + deployToProd
 
 uploadArchives {
