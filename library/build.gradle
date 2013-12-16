@@ -49,7 +49,7 @@ uploadArchives {
             pom.project {
                 groupId 'com.actionbarsherlock'
                 artifactId 'parent'
-                version '4.4.0.4'
+                version '4.4.0.5'
             }
         }
     }
