@@ -1,5 +1,5 @@
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.8'
+    gradleVersion = '1.10'
 }
 
 buildscript {
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.1'
+        classpath 'com.android.tools.build:gradle:0.8.+'
     }
 }
 
@@ -16,12 +16,12 @@ apply plugin: 'android-library'
 apply plugin: 'maven'
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.android.support:support-v4:19.0.0'
 }
 
 android {
   compileSdkVersion 14
-  buildToolsVersion '17.0.0'
+  buildToolsVersion '19.0.1'
 
   sourceSets {
     main {
